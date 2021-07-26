@@ -1,2 +1,2 @@
 # core-and-more
-Bundles core, and adds some more useful enhancements
+Contains core, and adds some other useful enhancements
