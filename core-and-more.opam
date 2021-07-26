@@ -1,0 +1,20 @@
+opam-version: "2.0"
+name: "core-and-more"
+version: "0.1"
+author: "Anders Miltner"
+maintainer: "Anders.Miltner@gmail.com"
+license: "MIT"
+synopsis: "Includes core, and some more useful extensions"
+build: [
+  ["dune" "build" "-p" name "-j" jobs]
+]
+depends: [
+  "ocaml" { >= "4.10.0" }
+  "dune" { >= "2.9" }
+  "core"
+]
+tags: [ "stdlib" "containers" ]
+homepage: "https://github.com/amiltner/core-and-more"
+doc: "https://github.com/amiltner/core-and-more"
+dev-repo: "git+https://github.com/amiltner/core-and-more.git"
+bug-reports: "https://github.com/amiltner/core-and-more/issues"
