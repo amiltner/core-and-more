@@ -404,6 +404,19 @@ module IntList =
 struct
   type t = int list
   [@@deriving ord, show, hash, eq]
+
+  let sum
+      (l:t)
+    : int =
+    List.fold_left
+      ~f:(+)
+      ~init:0
+      l
+
+  let average
+      (l:t)
+    : float =
+    Float.of_int (sum l) /. (Float.of_int (List.length l))
 end
 
 type ('a,'b) either = 
