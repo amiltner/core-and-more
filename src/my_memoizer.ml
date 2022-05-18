@@ -36,19 +36,23 @@ module type UnfixedHCDataFunction = sig
   val f : (Arg.t -> Result.t) unfixed
 end
 
-module FixHCMemoizerOf(F:UnfixedHCDataFunction) = struct
+module FixHCMemoizerOf(F:UnfixedHCDataFunction) : Container
+  with type t = F.Arg.t -> F.Result.t =
+struct
   module ResultDict = HCDictOf(F.Arg)(F.Result)
 
   let result_storage : ResultDict.t ref = ref ResultDict.empty
 
   let clear () : unit = result_storage := ResultDict.empty
 
-  let rec evaluate
+  type t = F.Arg.t -> F.Result.t
+
+  let rec v
       (x:F.Arg.t)
     : F.Result.t =
     begin match ResultDict.lookup (!result_storage) x with
       | None ->
-        let y = F.f evaluate x in
+        let y = F.f v x in
         result_storage := ResultDict.insert (!result_storage) x y;
         y
       | Some y -> y
