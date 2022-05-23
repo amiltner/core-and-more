@@ -43,7 +43,7 @@ struct
 
   let result_storage : ResultDict.t ref = ref ResultDict.empty
 
-  let clear () : unit = result_storage := ResultDict.empty
+  (*let clear () : unit = result_storage := ResultDict.empty*)
 
   type t = F.Arg.t -> F.Result.t
 
