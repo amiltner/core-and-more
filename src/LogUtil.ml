@@ -18,14 +18,15 @@ struct
       (l:L.t)
     : (unit -> string) -> unit =
     let lstr = L.show l in
+    let nl_regexp = (Str.regexp "\n") in
     fun string_thunk ->
       let string_val = string_thunk () in
       let full_string =
         Printf.sprintf
-          "%s, Level: %s, Message: %s"
+          "%s, Level: %s, Message:\n%s"
           (Core.Time.to_string (Core.Time.now ()))
           lstr
-          string_val
+          (Str.global_replace nl_regexp "\n\t" string_val)
       in
       print_endline full_string
 
