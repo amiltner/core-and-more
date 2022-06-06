@@ -9,6 +9,7 @@ sig
   val create : int -> 'a t
   val empty : unit -> 'a t
   val find_opt : key -> 'a t -> 'a option
+  val find_default : key -> 'a t -> default:'a -> 'a
   val add: key -> 'a -> 'a t -> unit
   val fold : (key -> 'a -> 'b -> 'b) -> 'a t -> 'b -> 'b
   val fold2 : (key -> 'a -> key -> 'b -> 'c -> 'c) -> 'a t -> 'b t -> 'c -> 'c
@@ -92,6 +93,13 @@ struct
       (d:'a t)
     : 'a option =
     Hashtbl.find d key
+
+  let find_default
+      (key:D.t)
+      (d:'a t)
+      ~(default:'a)
+    : 'a =
+    Option.value ~default (find_opt key d)
 
   let fold
       (type a)
