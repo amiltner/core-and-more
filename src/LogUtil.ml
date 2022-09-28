@@ -24,7 +24,7 @@ struct
       let full_string =
         Printf.sprintf
           "%s, Level: %s, Message:\n\t%s"
-          (Core.Time.to_string (Core.Time.now ()))
+          (Core.Time.to_string_utc (Core.Time.now ()))
           lstr
           (Str.global_replace nl_regexp "\n\t" string_val)
       in

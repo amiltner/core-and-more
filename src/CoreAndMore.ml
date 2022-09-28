@@ -1,4 +1,4 @@
-include Core_kernel
+include Core
 include Util
 include Algebra
 include Datastructures

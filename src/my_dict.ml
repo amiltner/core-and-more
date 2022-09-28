@@ -677,8 +677,8 @@ struct
     (merge_ordered_lists ordered_d1_kvp_list ordered_d2_kvp_list)
 
   let merge_to_dict
-      ?only_d1_fn:(only_d1_fn:value -> value = ident)
-      ?only_d2_fn:(only_d2_fn:value -> value = ident)
+      ?only_d1_fn:(only_d1_fn:value -> value = Fn.id)
+      ?only_d2_fn:(only_d2_fn:value -> value = Fn.id)
       ~combiner:(combiner:value -> value -> value)
       (d1:t)
       (d2:t)

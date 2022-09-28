@@ -1,4 +1,5 @@
 open Core
+module Unix = Core_unix
 
 let write_to_file
     ~(fname:string)

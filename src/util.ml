@@ -1,4 +1,5 @@
 open Core
+module Unix = Core_unix
 
 let default_compare = Stdlib.compare
 let compare _ _ = failwith "don't be so lazy"
@@ -231,7 +232,7 @@ module IntModule = struct
     : int =
     Int.abs (x - y)
 
-  let uid = ident
+  let uid = Fn.id
 end
 
 module StringModule = struct
@@ -510,7 +511,7 @@ let split_by_either (l:('a,'b) either list) : ('a list) * ('b list) =
           (fun (ll,lr) -> c (ll,x::lr))
     end
   in
-  split_by_either_internal l ident
+  split_by_either_internal l Fn.id
 
 let either_map
     ~left_f:(left_f:'a -> 'c)
@@ -616,7 +617,7 @@ let cartesian_filter_map
     (l2:'b list)
   : 'c list =
   List.filter_map
-    ~f:ident
+    ~f:Fn.id
     (cartesian_map
        ~f:f
        l1
@@ -724,7 +725,7 @@ let cons_if_some
 let filter_nones
     (l:('a option) list)
   : 'a list =
-  List.filter_map ~f:ident l
+  List.filter_map ~f:Fn.id l
 
 let option_to_empty_or_singleton
     (xo:'a option)
