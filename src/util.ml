@@ -282,12 +282,28 @@ module RefOf(D:Data) : Data with type t = D.t ref = struct
   let hash : 'a hasher = Int.hash % (fun xr -> uid xr)
 end
 
+let uid_ref
+    (x:'a ref)
+  : int =
+  Obj.magic x
+
 let hash_fold_ref
     (type a)
     (_:a hash_folder)
   : (a ref) hash_folder =
-  fun hs -> (Int.hash_fold_t hs) % (fun xr -> Obj.magic xr)
+  fun hs -> (Int.hash_fold_t hs) % uid_ref
 
+let compare_ref
+    (type a)
+    (_:a comparer)
+  : (a ref) comparer =
+  fun x -> fun y -> Int.compare (uid_ref x) (uid_ref y)
+
+let equal_ref
+    (type a)
+    (_:a -> a -> bool)
+  : a ref -> a ref -> bool =
+  fun x -> fun y -> Int.equal (uid_ref x) (uid_ref y)
 
 module OptionOf
     (D:Data)
